@@ -701,7 +701,42 @@ const CITIES = [
   { value: 'remote',      label: 'Готов(а) к удалёнке' },
 ]
 
-const PROFESSIONS = ['Frontend', 'Backend', 'Full Stack', 'Mobile', 'DevOps', 'QA', 'UI/UX', 'Data/ML']
+const PROFESSIONS = [
+  'Frontend', 
+  'Backend', 
+  'Full Stack', 
+  'Mobile', 
+  'DevOps', 
+  'QA', 
+  'UI/UX', 
+  'Data/ML', 
+  'Technical Support'
+]
+
+const METRICS = [
+  { num: '840', label: 'Просмотры',       hint: 'Конверсия в отклик: 14.2%',        tone: 'ink' },
+  { num: '120', label: 'Всего откликов',  hint: '94 из Telegram-бота',              tone: 'accent' },
+  { num: '32',  label: 'Прошли скрининг', hint: 'Зелёная зона (100% мэтч)',         tone: 'positive' },
+  { num: '18',  label: 'Нужен разбор',    hint: 'Жёлтая зона (50-97% мэтч)',        tone: 'warning' },
+]
+
+const GREEN_ZONE = [
+  { id: 1, name: 'Алишер Рахимов', exp: '2 года', city: 'Худжанд', match: 100, source: 'TG Бот', time: 'Вчера, 14:20' },
+  { id: 2, name: 'Мадина Тохирова', exp: '1.5 года', city: 'Душанбе (готова к переезду)', match: 100, source: 'Сайт', time: 'Сегодня, 09:15' },
+]
+
+const YELLOW_ZONE = [
+  {
+    id: 3, name: 'Ситора Каримова', exp: 'Без опыта', city: 'Худжанд', match: 66,
+    source: 'TG Бот', time: 'Вчера, 18:02',
+    flags: [
+      { label: 'Нет опыта работы', tone: 'danger' },
+      { label: 'Языки: Тадж/Рус', tone: 'positive' },
+    ],
+  },
+]
+
+const RED_ZONE_COUNT = 70
 
 export const SAMPLE_RESUMES = [
   {
@@ -726,6 +761,8 @@ export const SAMPLE_RESUMES = [
     currency: 'TJS',
     phone: '+992 92 777 12 34',
     email: 'farkhod.n@example.com',
+    github: 'https://github.com/farkhod-n',
+    linkedin: 'https://linkedin.com/in/farkhod-n',
     updatedAt: '2 дня назад',
   },
   {
@@ -750,6 +787,8 @@ export const SAMPLE_RESUMES = [
     currency: 'TJS',
     phone: '+992 92 555 88 90',
     email: 'shahnoza.k@example.com',
+    github: 'https://github.com/shahnoza-k',
+    linkedin: 'https://linkedin.com/in/shahnoza-k',
     updatedAt: '5 дней назад',
   },
   {
@@ -773,6 +812,8 @@ export const SAMPLE_RESUMES = [
     currency: 'TJS',
     phone: '+992 93 444 21 09',
     email: 'alisher.r@example.com',
+    github: 'https://github.com/alisher-r',
+    linkedin: 'https://linkedin.com/in/alisher-r',
     updatedAt: 'Сегодня',
   },
 ]
@@ -1010,6 +1051,18 @@ function ResumeModal({ resume, onClose, onContact }) {
                   {resume.phone}
                 </a>
               )}
+              {resume.github && (
+                <a href={resume.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline" style={{ color: '#64748B' }}>
+                  <i className="fa-brands fa-github text-[12px]" aria-hidden="true" />
+                  GitHub: {resume.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
+                </a>
+              )}
+              {resume.linkedin && (
+                <a href={resume.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline" style={{ color: '#64748B' }}>
+                  <i className="fa-brands fa-linkedin text-[12px]" aria-hidden="true" />
+                  LinkedIn: {resume.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/(in\/)?/, '')}
+                </a>
+              )}
             </div>
           </section>
 
@@ -1152,6 +1205,7 @@ function ResumeList({ resumes, onCreateClick }) {
 const EMPTY_FORM = {
   name: '', phone: '', email: '', city: '',
   skills: '', experience: '', education: '', about: '',
+  github: '', linkedin: '',
 }
 
 function FormField({ label, children, required }) {
@@ -1253,8 +1307,8 @@ function CreateResumeForm({ onSubmit, onCancel }) {
         <textarea
           value={form.experience}
           onChange={e => update('experience', e.target.value)}
-          placeholder="Где и кем работали, основные обязанности и достижения"
-          rows={4}
+          placeholder={"Место: \nПозиция: \nПериод: \nПричина ухода: \nРекомендации (ФИО, контакт): "}
+          rows={6}
           className={`${inputClass} resize-none`}
           style={inputStyle}
         />
@@ -1281,6 +1335,30 @@ function CreateResumeForm({ onSubmit, onCancel }) {
           style={inputStyle}
         />
       </FormField>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
+        <FormField label="GitHub">
+          <input
+            type="url"
+            value={form.github}
+            onChange={e => update('github', e.target.value)}
+            placeholder="https://github.com/username"
+            className={inputClass}
+            style={inputStyle}
+          />
+        </FormField>
+
+        <FormField label="LinkedIn">
+          <input
+            type="url"
+            value={form.linkedin}
+            onChange={e => update('linkedin', e.target.value)}
+            placeholder="https://linkedin.com/in/username"
+            className={inputClass}
+            style={inputStyle}
+          />
+        </FormField>
+      </div>
 
       {submitted && (!form.name.trim() || !form.phone.trim() || !form.email.trim()) && (
         <p className="text-[13px] font-medium mb-4" style={{ color: '#E0664A' }}>
@@ -1326,6 +1404,29 @@ function ResumeSection({ resumes = SAMPLE_RESUMES, onCreate }) {
       style={{ backgroundColor: '#F5F7FA' }}
       aria-label="Резюме"
     >
+      <style>{`
+        .hr-dashboard {
+          --hk-ink: #0B1220;
+          --hk-paper: #F7F8FA;
+          --hk-panel: #FFFFFF;
+          --hk-line: #E3E7EE;
+          --hk-line-soft: #ECEFF4;
+          --hk-accent: #2451D8;
+          --hk-accent-soft: #EAF0FE;
+          --hk-accent-border: #C7D6FB;
+          --hk-signal: #F97316;
+          --hk-signal-hover: #E0670B;
+          --hk-mute: #5B6472;
+          --hk-mute-2: #8A93A3;
+          --hk-positive: #147A4D;
+          --hk-positive-soft: #E7F5EE;
+          --hk-warning: #B5760B;
+          --hk-warning-soft: #FBF1DE;
+          --hk-danger: #C23A3A;
+          --hk-danger-soft: #FBEAEA;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto">
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
@@ -1356,7 +1457,68 @@ function ResumeSection({ resumes = SAMPLE_RESUMES, onCreate }) {
         </div>
 
         {mode === 'list' ? (
-          <ResumeList resumes={resumes} onCreateClick={() => setMode('create')} />
+          <>
+            {/* Блок кабинета HR: Специалист технической поддержки */}
+            <div className="hr-dashboard flex flex-col gap-6 mb-12 p-6 rounded-2xl bg-white" style={{ border: '1.5px solid #DCE3EC' }}>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-[.15em]" style={{ color: 'var(--hk-mute-2)' }}>
+                    Управление откликами
+                  </span>
+                  <h2 className="text-xl font-black mt-1 text-slate-900" style={{ color: 'var(--hk-ink)' }}>
+                    Специалист технической поддержки
+                  </h2>
+                  <p className="text-[13px] font-medium mt-1" style={{ color: 'var(--hk-mute)' }}>
+                    Худжанд · Полная занятость · Опубликовано 3 дня назад
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  
+                  {/* <button
+                    type="button"
+                    onClick={() => setMode('create')}
+                    className="px-4 py-2 rounded-xl text-[13px] font-bold text-white transition-all hover:opacity-90"
+                    style={{ background: 'var(--hk-signal)' }}
+                  >
+                    + Создать вакансию
+                  </button> */}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {METRICS.map(m => {
+                  const numColor = {
+                    ink: 'var(--hk-ink)',
+                    accent: 'var(--hk-accent)',
+                    positive: 'var(--hk-positive)',
+                    warning: 'var(--hk-warning)',
+                  }[m.tone]
+                  const hintColor = m.tone === 'accent' ? 'var(--hk-accent)' : 'var(--hk-mute-2)'
+
+                  return (
+                    <div
+                      key={m.label}
+                      className="rounded-xl p-3.5 transition-transform duration-200 hover:-translate-y-0.5 bg-white shadow-xs"
+                      style={{ border: '1px solid var(--hk-line)' }}
+                    >
+                      <div className="text-[10.5px] font-bold uppercase tracking-wide" style={{ color: 'var(--hk-mute-2)' }}>{m.label}</div>
+                      <div className="text-xl font-black mt-1" style={{ color: numColor }}>{m.num}</div>
+                      <div className="text-[10.5px] font-medium mt-1" style={{ color: hintColor }}>{m.hint}</div>
+                    </div>
+                  )
+                })}
+                <div className="rounded-xl p-3.5" style={{ background: 'var(--hk-ink)' }}>
+                  <div className="text-[10.5px] font-bold uppercase tracking-wide text-white opacity-70">Сэкономлено</div>
+                  <div className="text-xl font-black mt-1 text-white">+11.6 ч</div>
+                  <div className="text-[10.5px] font-medium mt-1 text-white opacity-70">Авто-отсев 70 кандидатов</div>
+                </div>
+              </div>
+
+            
+            </div>
+
+            <ResumeList resumes={resumes} onCreateClick={() => setMode('create')} />
+          </>
         ) : (
           <CreateResumeForm onSubmit={handleCreateSubmit} onCancel={() => setMode('list')} />
         )}

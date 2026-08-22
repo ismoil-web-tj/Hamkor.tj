@@ -14,17 +14,20 @@ import About from './Component/HeaderSec/AboutUs.jsx/aboutUs.jsx'
 import Resume from './Component/HeaderSec/Resume/Resume'
 import Job from './Component/HeaderSec/JobSection/JobSection'
 import CategoryPage from './Component/layout/Category/CategoryPage' 
+import PostJob from './Component/HeaderSec/Postjob/Postjob.jsx'
+// import ApplicationsSection from './Component/layout/Applicationcenter/Applicationcenter.jsx'
 
 
 function Main() {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Header />
         <Routes>
           <Route path="/" element={
             <>
               <HeroSection />
+              {/* <ApplicationsSection/> */}
               <Categories />
               <FeaturedJobs onViewAll={() => {}} />
               <HowItWorks />
@@ -32,9 +35,10 @@ function Main() {
             </>
           } />
           <Route path="/about"    element={<About />}      />
-          <Route path="/Job"      element={<Job />}        />
+          <Route path="/Job"      element={<JobsSection />}        />
           <Route path="/Resume"   element={<Resume />}     />
           <Route path="/Imployer" element={<Imployer />}   />
+          <Route path="/PostJob" element={<PostJob />}   />
 
           <Route path="/jobs/:slug" element={<CategoryPage />} />
 

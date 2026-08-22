@@ -592,13 +592,6 @@ const css = `
     gap: 8px;
     margin-bottom: 14px;
   }
-  .ft-logo-icon {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    background: #F97316;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
   .ft-logo-text {
     font-size: 20px;
     font-weight: 600;

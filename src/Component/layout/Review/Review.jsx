@@ -553,7 +553,7 @@ function Stars({ count, interactive = false, onSet }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <i
           key={i}
-          className={`fa-star text-[15px] ${i < display ? 'fa-solid' : 'fa-regular'} transition-colors`}
+          className={`fa-star text-[14px] sm:text-[15px] ${i < display ? 'fa-solid' : 'fa-regular'} transition-colors`}
           style={{ color: i < display ? '#F97316' : '#DCE3EC', cursor: interactive ? 'pointer' : 'default' }}
           aria-hidden="true"
           onMouseEnter={() => interactive && setHovered(i + 1)}
@@ -586,24 +586,24 @@ function TestimonialCard({ item, index }) {
         transform: 'translateY(20px)',
         transition: 'opacity 0.5s ease, transform 0.5s ease',
       }}
-      className="bg-white border rounded-[20px] p-6 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-1"
+      className="bg-white border rounded-[20px] p-5 sm:p-6 flex flex-col gap-3.5 sm:gap-4 transition-all duration-200 hover:-translate-y-1"
       onMouseOver={e => { e.currentTarget.style.borderColor = '#BFDBFE'; e.currentTarget.style.background = '#FAFBFE' }}
       onMouseOut={e => { e.currentTarget.style.borderColor = '#E1E7EF'; e.currentTarget.style.background = '#fff' }}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3 min-w-0">
           <div
-            className="w-11 h-11 rounded-full flex items-center justify-center text-[13px] font-extrabold shrink-0"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[12px] sm:text-[13px] font-extrabold shrink-0"
             style={{ background: '#0B1F3A', color: '#fff' }}
           >
             {item.initials}
           </div>
-          <div>
-            <p className="text-[14px] font-bold leading-tight flex items-center gap-1.5" style={{ color: '#0B1F3A' }}>
-              {item.name}
-              <i className="fa-solid fa-circle-check text-[11px]" style={{ color: '#3B82F6' }} title="Верифицированный отзыв" aria-hidden="true" />
+          <div className="min-w-0">
+            <p className="text-[13px] sm:text-[14px] font-bold leading-tight flex items-center gap-1.5 truncate" style={{ color: '#0B1F3A' }}>
+              <span className="truncate">{item.name}</span>
+              <i className="fa-solid fa-circle-check text-[11px] shrink-0" style={{ color: '#3B82F6' }} title="Верифицированный отзыв" aria-hidden="true" />
             </p>
-            <p className="text-[12px] mt-0.5" style={{ color: '#94A3B8' }}>
+            <p className="text-[11px] sm:text-[12px] mt-0.5 truncate" style={{ color: '#94A3B8' }}>
               {item.role} · {item.company}
             </p>
           </div>
@@ -619,11 +619,11 @@ function TestimonialCard({ item, index }) {
       <Stars count={item.stars} />
 
       <blockquote
-        className="text-[14px] leading-[1.75] relative"
+        className="text-[13px] sm:text-[14px] leading-[1.7] sm:leading-[1.75] relative"
         style={{ color: '#64748B' }}
       >
         <span
-          className="text-[40px] font-serif leading-none absolute -top-2 -left-1 select-none"
+          className="text-[36px] sm:text-[40px] font-serif leading-none absolute -top-2 -left-1 select-none"
           style={{ color: '#E1E7EF' }}
           aria-hidden="true"
         >"</span>
@@ -647,7 +647,7 @@ function AuthModal({ onClose, onLogin, onRegister }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-sm rounded-3xl p-8 flex flex-col gap-5"
+        className="relative w-full max-w-sm rounded-3xl p-6 sm:p-8 flex flex-col gap-5"
         style={{ background: '#fff', border: '1px solid #E1E7EF', boxShadow: '0 24px 64px -16px rgba(11,31,58,0.25)' }}
         onClick={e => e.stopPropagation()}
       >
@@ -671,7 +671,7 @@ function AuthModal({ onClose, onLogin, onRegister }) {
         </div>
 
         <div className="text-center">
-          <h3 className="text-[20px] font-extrabold mb-1.5" style={{ color: '#0B1F3A' }}>
+          <h3 className="text-[18px] sm:text-[20px] font-extrabold mb-1.5" style={{ color: '#0B1F3A' }}>
             Нужна авторизация
           </h3>
           <p className="text-[13px] leading-[1.6]" style={{ color: '#64748B' }}>
@@ -762,19 +762,19 @@ function AddReviewForm({ onSubmit }) {
 
   return (
     <div
-      className="rounded-[20px] p-6 md:p-8 border"
+      className="rounded-[20px] p-5 sm:p-6 md:p-8 border"
       style={{ background: '#FFFFFF', borderColor: '#E1E7EF' }}
     >
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-5 sm:mb-6">
         <div
-          className="w-10 h-10 rounded-[10px] flex items-center justify-center text-[18px]"
+          className="w-10 h-10 rounded-[10px] flex items-center justify-center text-[18px] shrink-0"
           style={{ background: '#F5F7FA', color: '#F97316' }}
         >
           <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
         </div>
         <div>
-          <h3 className="text-[16px] font-bold" style={{ color: '#0B1F3A' }}>Оставить отзыв</h3>
-          <p className="text-[12px]" style={{ color: '#94A3B8' }}>Поделитесь своим опытом с другими</p>
+          <h3 className="text-[15px] sm:text-[16px] font-bold" style={{ color: '#0B1F3A' }}>Оставить отзыв</h3>
+          <p className="text-[11px] sm:text-[12px]" style={{ color: '#94A3B8' }}>Поделитесь своим опытом с другими</p>
         </div>
       </div>
 
@@ -842,14 +842,14 @@ function AddReviewForm({ onSubmit }) {
           {errors.text && <p className="text-[11px] mt-1 ml-1" style={{ color: '#F97316' }}>{errors.text}</p>}
         </div>
 
-        <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="text-[12px] font-semibold" style={{ color: '#64748B' }}>Оценка:</span>
             <Stars count={stars} interactive onSet={setStars} />
           </div>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 text-white text-[13px] font-bold px-6 py-2.5 rounded-xl transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-white text-[13px] font-bold px-6 py-2.5 rounded-xl transition-colors"
             style={{ background: '#F97316' }}
             onMouseOver={e => e.currentTarget.style.background = '#E0670B'}
             onMouseOut={e => e.currentTarget.style.background = '#F97316'}
@@ -886,7 +886,7 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
       )}
 
       <section
-        className="py-16 px-6 border-b"
+        className="py-10 sm:py-12 md:py-16 px-4 sm:px-6 border-b"
         style={{ backgroundColor: '#F5F7FA', borderColor: '#DCE3EC' }}
         aria-labelledby="testimonials-title"
       >
@@ -896,10 +896,10 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
         <div className="max-w-5xl mx-auto">
 
           {/* Шапка */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 sm:mb-12">
             <div className="inline-flex items-center gap-3 mb-4">
               <span className="w-5 h-[1.5px] rounded" style={{ background: '#BFDBFE' }} aria-hidden="true" />
-              <span className="text-[11px] font-bold uppercase tracking-[2.5px]" style={{ color: '#1D4ED8' }}>
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[2px] sm:tracking-[2.5px]" style={{ color: '#1D4ED8' }}>
                 Отзывы
               </span>
               <span className="w-5 h-[1.5px] rounded" style={{ background: '#BFDBFE' }} aria-hidden="true" />
@@ -907,14 +907,14 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
 
             <h2
               id="testimonials-title"
-              className="text-[32px] font-extrabold tracking-[-1.2px] leading-[1.1] mb-4"
+              className="text-[26px] sm:text-[30px] md:text-[32px] font-extrabold tracking-[-0.8px] sm:tracking-[-1.2px] leading-[1.15] sm:leading-[1.1] mb-3 sm:mb-4 px-2"
               style={{ color: '#0B1F3A' }}
             >
               Они уже нашли работу
               <span className="block" style={{ color: '#F97316' }}>через Hamkor.tj</span>
             </h2>
 
-            <p className="text-[15px] max-w-sm mx-auto leading-[1.7]" style={{ color: '#64748B' }}>
+            <p className="text-[14px] sm:text-[15px] max-w-70 sm:max-w-sm mx-auto leading-[1.7]" style={{ color: '#64748B' }}>
               <span className="Hamkor-tabular font-semibold" style={{ color: '#0B1F3A' }}>8 500+</span> специалистов получили оффер за последний год
             </p>
           </div>
@@ -927,7 +927,7 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
           </div>
 
           {/* Статистика */}
-          <div className="grid grid-cols-3 gap-3 mb-8">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-8">
             {[
               { num: '4.9',    label: 'Средняя оценка',      icon: 'fa-solid fa-star' },
               { num: '8 500+', label: 'Трудоустроено',        icon: 'fa-solid fa-user-check' },
@@ -935,20 +935,20 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-white border rounded-2xl px-4 py-3.5 flex items-center gap-3"
+                className="bg-white border rounded-2xl px-2.5 sm:px-4 py-3 sm:py-3.5 flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3 text-center sm:text-left"
                 style={{ borderColor: '#E1E7EF' }}
               >
                 <div
-                  className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-[10px] flex items-center justify-center shrink-0"
                   style={{ background: '#F5F7FA' }}
                 >
-                  <i className={`${stat.icon} text-[14px]`} style={{ color: '#F97316' }} aria-hidden="true" />
+                  <i className={`${stat.icon} text-[12px] sm:text-[14px]`} style={{ color: '#F97316' }} aria-hidden="true" />
                 </div>
-                <div>
-                  <p className="Hamkor-tabular text-[15px] font-extrabold tracking-tight leading-none" style={{ color: '#0B1F3A' }}>
+                <div className="min-w-0">
+                  <p className="Hamkor-tabular text-[13px] sm:text-[15px] font-extrabold tracking-tight leading-none" style={{ color: '#0B1F3A' }}>
                     {stat.num}
                   </p>
-                  <p className="text-[11px] mt-0.5 leading-tight" style={{ color: '#94A3B8' }}>
+                  <p className="text-[9px] sm:text-[11px] mt-0.5 leading-tight" style={{ color: '#94A3B8' }}>
                     {stat.label}
                   </p>
                 </div>
@@ -961,11 +961,11 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
             <AddReviewForm onSubmit={handleSubmit} />
           ) : (
             <div
-              className="rounded-[20px] p-6 md:p-8 border flex flex-col sm:flex-row items-center justify-between gap-6 cursor-pointer group"
+              className="rounded-[20px] p-5 sm:p-6 md:p-8 border flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 cursor-pointer group text-center sm:text-left"
               style={{ background: '#FFFFFF', borderColor: '#E1E7EF' }}
               onClick={handleFormClick}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                 <div
                   className="w-12 h-12 rounded-[14px] flex items-center justify-center text-[22px] shrink-0"
                   style={{ background: '#F5F7FA', color: '#F97316' }}
@@ -973,10 +973,10 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
                   <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-[16px] font-bold" style={{ color: '#0B1F3A' }}>
+                  <p className="text-[15px] sm:text-[16px] font-bold" style={{ color: '#0B1F3A' }}>
                     Нашли работу через Hamkor.tj?
                   </p>
-                  <p className="text-[13px]" style={{ color: '#94A3B8' }}>
+                  <p className="text-[12px] sm:text-[13px]" style={{ color: '#94A3B8' }}>
                     Войдите и поделитесь своей историей — это поможет другим
                   </p>
                 </div>
@@ -984,7 +984,7 @@ function Testimonials({ isLoggedIn = IS_LOGGED_IN, onLogin, onRegister }) {
               <button
                 type="button"
                 onClick={handleFormClick}
-                className="inline-flex items-center gap-2 text-white text-[13px] font-bold px-6 py-3 rounded-xl transition-colors shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-white text-[13px] font-bold px-6 py-3 rounded-xl transition-colors shrink-0"
                 style={{ background: '#F97316' }}
                 onMouseOver={e => e.currentTarget.style.background = '#E0670B'}
                 onMouseOut={e => e.currentTarget.style.background = '#F97316'}

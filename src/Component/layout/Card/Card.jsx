@@ -520,7 +520,7 @@ function HowItWorks({ onRegister, onBrowse }) {
         </div>
 
         {/* CTA блок */}
-        <div
+        {/* <div
           className="flex flex-col sm:flex-row items-center justify-between rounded-[20px] px-10 py-8 gap-6"
           style={{ background: '#0B1F3A' }}
         >
@@ -564,7 +564,7 @@ function HowItWorks({ onRegister, onBrowse }) {
               Зарегистрироваться
             </button>
           </div>
-        </div>
+        </div> */}
 
       </div>
     </section>
